@@ -1,6 +1,6 @@
 class Solution {
 public:
-    vector<vector<int> > subsetsWithDup(vector<int> &S) {
+    vector<vector<int> > subsets(vector<int> &S) {
         vector<vector<int> > ret;
         if (S.empty()) return ret;
         
@@ -18,11 +18,9 @@ public:
         }
 
         for (int i=ind; i<n; ++i) {
-            if (i == ind || (i > ind && s[i] != s[i-1])) {
-                base.push_back(s[i]);
-                solveRec(ret, base, i+1, s);
-                base.pop_back();
-            }
+            base.push_back(s[i]);
+            solveRec(ret, base, i+1, s);
+            base.pop_back();
         }
         solveRec(ret, base, n, s);
     }

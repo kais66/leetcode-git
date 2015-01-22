@@ -1,0 +1,21 @@
+class Solution {
+public:
+    bool isValidBST(TreeNode *root) {
+        int prev = INT_MIN; // WRONG: won't pass test case {-2147483648}
+        bool isValid = true;
+        inOrderCheck(root, prev, isValid);
+        return isValid;
+    }
+
+    void inOrderCheck(TreeNode *n, int &prev, bool &isValid) {
+        if (!n) return;
+
+        inOrderCheck(n->left, prev, isValid);
+        if (prev >= n->val) {
+            isValid = false;
+            return; // no need to traverse further
+        }
+        prev = n->val;
+        inOrderCheck(n->right, prev, isValid);
+    }
+};

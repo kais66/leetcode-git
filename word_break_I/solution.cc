@@ -1,6 +1,8 @@
 class Solution {
 public:
     // http://www.geeksforgeeks.org/dynamic-programming-set-32-word-break-problem/
+    // O(n^2) time
+    // algo: for i in [0..n-1], test if s[0..i] is breakable: if itself is in dictionary (new test to be done), or if it can be broken into multiple words (from previous iterations); if it's breakable, check for j in [i+1, n], if s[i+1, j] exists in dictionary.
     bool wordBreak(string s, unordered_set<string> &dict) {
         if (s.empty()) return true;
         int n = s.size();

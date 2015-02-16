@@ -1,5 +1,7 @@
 class Solution {
 public:
+    // algo: iterate over the array. For each element, if it's a left, push; if it's a right, peek if stack top is a corresponding
+    // left.
     bool isValid(string s) {
         bool ret = true;
         stack<char> sk;

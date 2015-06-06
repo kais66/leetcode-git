@@ -1,7 +1,7 @@
 class Solution {
 public:
-    // http://blog.csdn.net/linhuanmars/article/details/20343903
-    // start points to a T char, which is a start point of a valid window substring
+    // http://leetcode.com/2010/11/finding-minimum-window-in-s-which.html
+    // algo: two hash tables, two pointers. Right pointer always stops at a valid char which belongs to the pattern. When moving right pointer, update cnt (number of essential chars seen so far, not exceeding per char count) and sfreq (number of valid chars seen). For every right pointer location, if cnt is equal to the number of chars in the pattern, we advance left pointer as far right as possible while maintaining the constraint.
     string minWindow(string S, string T) {
         vector<int> tfreq(256, 0);                
         int tn = T.size();
@@ -17,23 +17,20 @@ public:
             char c = S[i];
             if (tfreq[c] == 0) { continue; }
 
-            // if c is a T char 
             sfreq[c]++;
-            if (sfreq[c] <= tfreq[c]) { cnt++; }
-            else {
-                while (tfreq[S[start]] == 0) { ++start; }
-                // move start pointer to pass the first occurance of c
-                if (S[start] == c) { // should move start.
-                    while (sfreq[S[start]] > tfreq[S[start]]) { // if new start pointing element with freq >tfreq, continue moving start
-                        sfreq[S[start]]--;
-                        ++start;
-                        while (tfreq[S[start]] == 0) { ++start; }
-                    }
+            if (sfreq[c] <= tfreq[c]) { cnt++; } // won't increment if we've got more than enought this char.
+            if (cnt == tn) {
+                char leftc = S[start];
+                // while (tfreq[leftc] == 0 || sfreq[leftc] > tfreq[leftc]) { 
+                while (tfreq[leftc] == 0 || (sfreq[c] > tfreq[c] && leftc == c)) { 
+                    if (sfreq[leftc] > 0) { --sfreq[leftc]; }
+                    ++start; 
+                    leftc = S[start];
                 }
-            }
-            if (cnt == tn && i-start+1 < len) {
-                len = i-start+1;
-                ret = S.substr(start, i-start+1);
+                if (i-start+1 < len) {
+                    len = i-start+1;
+                    ret = S.substr(start, i-start+1);
+                }
             }
         }
         return ret;

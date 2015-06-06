@@ -1,6 +1,8 @@
 class Solution {
 public:
     // http://blog.csdn.net/linhuanmars/article/details/20342851
+    // algo: two pointers, use two hash tables. Right pointer (j) search for new words, if the word is a vaild one, move the left pointer so that cur freq count equal to the targeted value. Then if total number of words (cnt) is equal to length of L, push value to result. 
+    // another algo: brute force, for each substring of length wn*num, check if it's a valid answer. 
     vector<int> findSubstring(string S, vector<string> &L) {
         vector<int> ret;
         if (L.empty()) return ret;  

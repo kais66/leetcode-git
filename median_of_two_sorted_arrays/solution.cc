@@ -1,6 +1,6 @@
 class Solution {
 public:
-    // wrong: need to return double
+    // Key is the findKth() subroutine, which discards k/2 elements everytime (instead of half the array size).
     double findMedianSortedArrays(int A[], int m, int B[], int n) {
         int mid = (m + n) / 2; // index of array, mid+1 is index of kth
         if ((m+n) % 2 == 0) {
@@ -11,7 +11,7 @@ public:
     }
 
     // no ordering requirement between length of A and B
-    int kthLarge(int A[], int m, int B[], int n, int k) {
+    double kthLarge(int A[], int m, int B[], int n, int k) {
         if (m == 0) return B[k-1];
         if (n == 0) return A[k-1];
         if (k == 1) return min(A[0], B[0]);
